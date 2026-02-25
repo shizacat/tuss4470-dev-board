@@ -29,11 +29,11 @@ jobs:
                 -l "B.Cu,B.Mask,B.Silkscreen,B.Courtyard,Edge.Cuts" \
                 -o pcb-back.pdf \
                 tuss4470-dev/tuss4470-dev.kicad_pcb
-              kicad-cli pcb export 3d \
-                --format step -o pcb-3d.step \
+              kicad-cli pcb export step \
+                -o pcb-3d.step \
                 tuss4470-dev/tuss4470-dev.kicad_pcb
-              kicad-cli pcb export 3d \
-                --format stl -o pcb-3d.stl \
+              kicad-cli pcb export stl \
+                -o pcb-3d.stl \
                 tuss4470-dev/tuss4470-dev.kicad_pcb
             '
 
