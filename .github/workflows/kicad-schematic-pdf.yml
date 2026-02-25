@@ -22,7 +22,7 @@ jobs:
             kicad/kicad:9.0 \
             kicad-cli sch export pdf \
             -o schematic.pdf \
-            tuss4470-dev/tuss4470-dev.kicad_sch
+            "tuss4470-dev/tuss4470-dev.kicad_sch"
 
       - name: Upload schematic PDF
         uses: actions/upload-artifact@v4
