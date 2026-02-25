@@ -1,0 +1,48 @@
+name: KiCad PCB render (PDF)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  pcb-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Export PCB to PDF and 3D (STEP, STL)
+        run: |
+          docker run --rm --user root \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            kicad/kicad:9.0 \
+            sh -c '
+              kicad-cli pcb export pdf \
+                -l "F.Cu,F.Mask,F.Silkscreen,F.Courtyard,Edge.Cuts" \
+                -o pcb-front.pdf \
+                tuss4470-dev/tuss4470-dev.kicad_pcb
+              kicad-cli pcb export pdf \
+                -l "B.Cu,B.Mask,B.Silkscreen,B.Courtyard,Edge.Cuts" \
+                -o pcb-back.pdf \
+                tuss4470-dev/tuss4470-dev.kicad_pcb
+              kicad-cli pcb export 3d \
+                --format step -o pcb-3d.step \
+                tuss4470-dev/tuss4470-dev.kicad_pcb
+              kicad-cli pcb export 3d \
+                --format stl -o pcb-3d.stl \
+                tuss4470-dev/tuss4470-dev.kicad_pcb
+            '
+
+      - name: Upload PCB exports
+        uses: actions/upload-artifact@v4
+        with:
+          name: pcb-exports
+          path: |
+            pcb-front.pdf
+            pcb-back.pdf
+            pcb-3d.step
+            pcb-3d.stl
