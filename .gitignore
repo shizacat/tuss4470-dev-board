@@ -1,0 +1,4 @@
+*.zip
+.DS_Store
+*.bak
+hardware/out/*
