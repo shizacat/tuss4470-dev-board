@@ -1,0 +1,31 @@
+name: KiCad schematic PDF
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  schematic-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Export schematic to PDF
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            kicad/kicad:9.0 \
+            kicad-cli sch export pdf \
+            -o tuss4470-dev/schematic.pdf \
+            tuss4470-dev/tuss4470-dev.kicad_sch
+
+      - name: Upload schematic PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: schematic-pdf
+          path: tuss4470-dev/schematic.pdf
