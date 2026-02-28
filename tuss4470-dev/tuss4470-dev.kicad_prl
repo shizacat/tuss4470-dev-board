@@ -97,7 +97,7 @@
       103,
       74,
       103,
-      103
+      0
     ],
     "custom_group_rules": [],
     "expanded_rows": [],
@@ -111,7 +111,9 @@
     "sort_ascending": true,
     "sorting_column": 0
   },
-  "open_jobsets": [],
+  "open_jobsets": [
+    "main.kicad_jobset"
+  ],
   "project": {
     "files": []
   },

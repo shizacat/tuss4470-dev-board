@@ -1,0 +1,40 @@
+name: KiCad PCB Jobs
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  kicad-pcb-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run KiCad jobset (main)
+        run: |
+          docker run --rm --user root \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            kicad/kicad:9.0 \
+            kicad-cli jobset run \
+              --file tuss4470-dev/main.kicad_jobset \
+              tuss4470-dev/tuss4470-dev.kicad_pro
+
+      - name: Create kicad-job-main.zip
+        run: |
+          zip -r kicad-job-main.zip main/
+
+      - name: Upload to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          files: kicad-job-main.zip
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
