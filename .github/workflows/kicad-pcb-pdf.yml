@@ -1,11 +1,12 @@
 name: KiCad PCB render (PDF)
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  release:
+    types: [published]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   pcb-pdf:
@@ -37,12 +38,16 @@ jobs:
                 tuss4470-dev/tuss4470-dev.kicad_pcb
             '
 
-      - name: Upload PCB exports
-        uses: actions/upload-artifact@v4
+      - name: Upload PCB exports to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
         with:
-          name: pcb-exports
-          path: |
+          tag_name: ${{ github.event.release.tag_name }}
+          files: |
             pcb-front.pdf
             pcb-back.pdf
             pcb-3d.step
             pcb-3d.stl
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

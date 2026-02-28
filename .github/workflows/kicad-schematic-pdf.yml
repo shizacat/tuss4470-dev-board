@@ -1,11 +1,12 @@
 name: KiCad schematic PDF
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  release:
+    types: [published]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   schematic-pdf:
@@ -24,8 +25,12 @@ jobs:
             -o schematic.pdf \
             tuss4470-dev/tuss4470-dev.kicad_sch
 
-      - name: Upload schematic PDF
-        uses: actions/upload-artifact@v4
+      - name: Upload schematic PDF to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
         with:
-          name: schematic-pdf
-          path: schematic.pdf
+          tag_name: ${{ github.event.release.tag_name }}
+          files: schematic.pdf
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
