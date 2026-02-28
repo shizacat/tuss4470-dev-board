@@ -38,16 +38,16 @@ jobs:
                 tuss4470-dev/tuss4470-dev.kicad_pcb
             '
 
+      - name: Create pcb-export.zip
+        run: |
+          zip pcb-export.zip pcb-front.pdf pcb-back.pdf pcb-3d.step pcb-3d.stl
+
       - name: Upload PCB exports to Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.release.tag_name }}
-          files: |
-            pcb-front.pdf
-            pcb-back.pdf
-            pcb-3d.step
-            pcb-3d.stl
+          files: pcb-export.zip
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
