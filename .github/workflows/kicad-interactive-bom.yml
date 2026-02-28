@@ -26,16 +26,19 @@ jobs:
               --no-browser \
               --dest-dir "$GITHUB_WORKSPACE" \
               --name-format "ibom"
-      
-      - name: List workspace contents
-        run: |
-            echo "--- Contents of workspace ---"
-            ls -la
 
       - name: Create interactive-bom.zip
         run: |
           cp tuss4470-dev/ibom.html . 2>/dev/null || true
           zip interactive-bom.zip ibom.html
+
+      - name: Upload Interactive BOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: interactive-bom
+          path: |
+            interactive-bom.zip
+            ibom.html
 
       - name: Upload Interactive BOM to Release
         if: github.event_name == 'release'
