@@ -13,6 +13,17 @@ The board will:
 Requirements:
 - Created in KiCad 9.x
 
+## CI/CD — Jobs for home fabrication
+
+On release or manual run, the **KiCad PCB Jobs** workflow produces the **main** artifact (folder `main/` in `kicad-job-main.zip`). It is set up for **home PCB fabrication using the film photoresist method**:
+
+| Layer | Processing | Purpose |
+|-------|------------|--------|
+| **F (front)** | Inverted and mirrored (mirror + negative) | Print on transparent film for top-side photoresist exposure |
+| **B (back)** | Inverted only (negative) | Print on film for bottom-side exposure |
+
+The **main** job outputs layer PDFs (F.Cu, B.Cu), drill files (Excellon), and BOM (CSV). Use them to print masks on transparent film and then UV-expose the photoresist-coated blank.
+
 ## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
