@@ -20,7 +20,7 @@ jobs:
             -w /workspace \
             shizacat/kicadimage:latest \
             xvfb-run --auto-servernum --server-args "-screen 0 1024x768x24" \
-              generate_interactive_bom.py tuss4470-dev/tuss4470-dev.kicad_pcb \
+              generate_interactive_bom tuss4470-dev/tuss4470-dev.kicad_pcb \
               --dnp-field DNP \
               --group-fields "Value,Footprint" \
               --blacklist "X1,MH*" \
