@@ -1,0 +1,44 @@
+name: KiCad Interactive BOM
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  interactive-bom:
+    runs-on: ubuntu-latest
+    container: shizacat/kicadimage:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Interactive BOM
+        run: |
+            xvfb-run --auto-servernum --server-args "-screen 0 1024x768x24" \
+              generate_interactive_bom tuss4470-dev/tuss4470-dev.kicad_pcb \
+              --dnp-field DNP \
+              --group-fields "Value,Footprint" \
+              --blacklist "X1,MH*" \
+              --include-nets \
+              --normalize-field-case \
+              --no-browser \
+              --dest-dir "$GITHUB_WORKSPACE" \
+              --name-format "ibom"
+
+      - name: Create interactive-bom.zip
+        run: |
+          cp tuss4470-dev/ibom.html . 2>/dev/null || true
+          zip interactive-bom.zip ibom.html
+
+      - name: Upload Interactive BOM to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          files: interactive-bom.zip
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
