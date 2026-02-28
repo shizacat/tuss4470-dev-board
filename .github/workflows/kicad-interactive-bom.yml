@@ -24,7 +24,7 @@ jobs:
               --include-nets \
               --normalize-field-case \
               --no-browser \
-              --dest-dir ./ \
+              --dest-dir "$GITHUB_WORKSPACE" \
               --name-format "ibom"
       
       - name: List workspace contents
@@ -34,7 +34,8 @@ jobs:
 
       - name: Create interactive-bom.zip
         run: |
-          zip interactive-bom.zip ibom.* 2>/dev/null || zip interactive-bom.zip ibom.html
+          cp tuss4470-dev/ibom.html . 2>/dev/null || true
+          zip interactive-bom.zip ibom.html
 
       - name: Upload Interactive BOM to Release
         if: github.event_name == 'release'
