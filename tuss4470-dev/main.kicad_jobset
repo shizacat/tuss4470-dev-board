@@ -216,7 +216,11 @@
     {
       "description": "",
       "id": "19d37dae-b0ff-464e-a662-757fd3cd2208",
-      "only": [],
+      "only": [
+        "d78e6805-981e-43af-9ca3-6984d31dc6d4",
+        "a131b687-65c3-4304-ac98-0708068e20c4",
+        "63a37bd1-d81b-4492-8dca-d537eb56863e"
+      ],
       "settings": {
         "output_path": "main"
       },
