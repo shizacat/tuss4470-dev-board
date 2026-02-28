@@ -151,6 +151,62 @@
         "zero_format": "decimal"
       },
       "type": "pcb_export_drill"
+    },
+    {
+      "description": "",
+      "id": "9e708f19-3cf4-4276-9792-adf566bf6ce4",
+      "settings": {
+        "bom_format_preset_name": "CSV",
+        "bom_preset_name": "Attributes",
+        "description": "",
+        "exclude_dnp": false,
+        "field_delimiter": ",",
+        "fields_group_by": [
+          "Value",
+          "Footprint"
+        ],
+        "fields_labels": [
+          "Reference",
+          "Value",
+          "Datasheet",
+          "Footprint",
+          "Do Not Place",
+          "Exclude from BOM",
+          "Exclude from Board",
+          "Exclude from Simulation",
+          "Sim.Pins",
+          "Description",
+          "Qty",
+          "#",
+          "Sim.Device"
+        ],
+        "fields_ordered": [
+          "Reference",
+          "Value",
+          "__Datasheet",
+          "__Footprint",
+          "${DNP}",
+          "${EXCLUDE_FROM_BOM}",
+          "${EXCLUDE_FROM_BOARD}",
+          "${EXCLUDE_FROM_SIM}",
+          "__Sim.Pins",
+          "__Description",
+          "__${QUANTITY}",
+          "__${ITEM_NUMBER}",
+          "__Sim.Device"
+        ],
+        "filter_string": "",
+        "include_excluded_from_bom": true,
+        "keep_line_breaks": false,
+        "keep_tabs": false,
+        "output_filename": "tuss4470-dev.csv",
+        "ref_delimiter": ",",
+        "ref_range_delimiter": "",
+        "sort_asc": true,
+        "sort_field": "Reference",
+        "string_delimiter": "\""
+      },
+      "type": "sch_export_bom"
     }
   ],
   "meta": {
