@@ -12,7 +12,7 @@ jobs:
     container: shizacat/kicadimage:latest
     steps:
       - name: Checkout
-        uses: actions/  @v4
+        uses: actions/checkout@v4
 
       - name: Generate Interactive BOM
         run: |
