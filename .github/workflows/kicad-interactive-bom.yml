@@ -26,6 +26,9 @@ jobs:
               --no-browser \
               --dest-dir ./ \
               --name-format "ibom"
+      
+      - name: List workspace contents
+        run: |
             echo "--- Contents of workspace ---"
             ls -la
 
