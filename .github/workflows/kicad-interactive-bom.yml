@@ -1,7 +1,8 @@
 name: KiCad Interactive BOM
 
 on:
-  push:
+  release:
+    types: [published]
 
 permissions:
   contents: write
