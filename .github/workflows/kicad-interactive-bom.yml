@@ -26,6 +26,8 @@ jobs:
               --no-browser \
               --dest-dir ./ \
               --name-format "ibom"
+            echo "--- Contents of workspace ---"
+            ls -la
 
       - name: Create interactive-bom.zip
         run: |
