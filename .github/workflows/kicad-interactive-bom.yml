@@ -9,16 +9,13 @@ permissions:
 jobs:
   interactive-bom:
     runs-on: ubuntu-latest
+    container: shizacat/kicadimage:latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/  @v4
 
       - name: Generate Interactive BOM
         run: |
-          docker run --rm --user root \
-            -v "${{ github.workspace }}:/workspace" \
-            -w /workspace \
-            shizacat/kicadimage:latest \
             xvfb-run --auto-servernum --server-args "-screen 0 1024x768x24" \
               generate_interactive_bom tuss4470-dev/tuss4470-dev.kicad_pcb \
               --dnp-field DNP \
