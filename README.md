@@ -9,3 +9,6 @@ The board will:
 - Allow connection of an external ultrasonic transducer
 - Include basic protection and filtering components
 - Be optimized for manual PCB fabrication and soldering (through-hole where possible, reasonable trace widths, minimal layer complexity). Two layer board will be needed.
+
+Requirements:
+- Created in KiCad 9.x
